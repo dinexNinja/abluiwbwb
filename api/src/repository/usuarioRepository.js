@@ -1,4 +1,4 @@
-import { con } from "./src/repository/connection.js "
+import { con } from "./connection.js"
 
 export async function login(email, senha ) {
      const comando = 
