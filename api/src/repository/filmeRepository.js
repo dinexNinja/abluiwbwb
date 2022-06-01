@@ -8,16 +8,19 @@ export async function inserirFilme(filme){
     const [resposta] = await con.query(comando, [filme.usuario, filme.nome, filme.sinopse, filme.avaliacao, filme.lancamento, filme.disponivel])
     filme.id =resposta.insertId;
     
-    
-
-
-
-
-
-
-
     return filme;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 export async function ListarTodosOsFilmes(){
 		const comando =`SELECT id_filme			id,
@@ -29,6 +32,35 @@ export async function ListarTodosOsFilmes(){
 	const [linhas] = await con.query(comando)
 	return linhas
 }
+
+
+
+
+
+
+
+
+
+export async function alterarImagem(imagem,id) {
+  const comando = 
+  `
+    UPDATE tb_filme 
+     SET img_filme  = ?
+     WHERE id_filme = ?
+  `;
+  const [resposta] = await con.query(comando, [imagem , id]) 
+  return resposta.affectedRows;
+}
+
+
+
+
+
+
+
+
+
+
 
 export async function BuscaPorID(id){
     const comando =`SELECT id_filme			id,
@@ -43,6 +75,20 @@ export async function BuscaPorID(id){
 const [linhas] = await con.query(comando, id);
 return linhas[0];
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export async function BuscaPorNome(nome){
     const comando =`SELECT id_filme			id,
                            nm_filme			nome,
