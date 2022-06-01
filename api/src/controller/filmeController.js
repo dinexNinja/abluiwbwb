@@ -1,4 +1,4 @@
-import { inserirFilme, ListarTodosOsFilmes, BuscaPorID, BuscaPorNome, alterarImagem } from "../repository/filmeRepository.js";
+import { inserirFilme, ListarTodosOsFilmes, BuscaPorID, BuscaPorNome, alterarImagem, DeletarFilme, alterarFilme } from "../repository/filmeRepository.js";
 import { Router } from "express";
 import  multer  from "multer"
 const server = Router();
@@ -87,3 +87,31 @@ server.get('/filme/:id', async (req, resp) => {
     export default server;
     
 
+    server.delete('/filme/:id', async (req, resp) => {
+        try{ 
+            const { id } = req.params;
+            const resposta = await DeletarFilme(id);
+            if(resposta != 1) 
+                throw new Error ('filme não pode ser removido')
+            resp.status(204).send()
+    } catch(err){
+            resp.status(400).send({
+                erro: err.message
+        })}})
+
+        
+
+
+        server.put('/filme/:id', async (req, resp) => {
+            try{ 
+                const { id } = req.params;
+                const filme = req.body;
+                const resposta = await alterarFilme(id, filme);
+                if(resposta != 1) 
+                    throw new Error ('filme não pode ser removido')
+                resp.status(204).send()
+        } catch(err){
+                resp.status(400).send({
+                    erro: err.message
+            })}})
+       

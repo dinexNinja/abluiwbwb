@@ -34,6 +34,20 @@ export async function ListarTodosOsFilmes(){
 }
 
 
+export async function alterarFilme(id, filme){
+	const comando = `
+	UPDATE tb_filme 
+   SET nm_filme      = ?,
+       ds_sinopse    = ?,
+       vl_avaliacao  = ?,
+       dt_lancamento = ?,
+       bt_disponivel = ?
+ WHERE id_filme = 1
+`
+	const [resposta] = await con.query(comando, [filme.nome, filme.sinopse, filme.avaliacao, filme.lancamento, filme.disponivel, id])
+	return resposta.affectedRows;
+}
+
 
 
 
@@ -53,7 +67,13 @@ export async function alterarImagem(imagem,id) {
 }
 
 
-
+export async function DeletarFilme(id){
+	const comando = `
+			DELETE FROM tb_filme
+			WHERE       id_filme = ?`
+	const [resposta] = await con.query(comando, [id])
+	return resposta.affectedRows;
+}
 
 
 
